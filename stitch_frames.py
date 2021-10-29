@@ -8,6 +8,14 @@ video_frames = []
 video_folder = "videos"
 image_folder = "images"
 
+"""
+ Example of building a video from these frames. 
+
+ Capturing individual frames is helpful for debugging. This could be moved to
+ the main loop, but would require some more futzing with the data before passing
+ it to VideoWriter
+"""   
+
 filenames = sorted(glob.glob(image_folder+"/*.png"))
 for filename in filenames:
     img = cv2.imread(filename)

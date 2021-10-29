@@ -63,24 +63,3 @@ for i in range(video_length + 1):
     print(f"Writing: {image_path}")
     airsim.utils.write_png(image_path, data)
 env.close()
-
-
-
-"""
- Example of building a video from these frames. 
-
- Capturing individual frames is helpful for debugging. This could be moved to
- the main loop, but would require some more futzing with the data before passing
- it to VideoWriter
-"""   
-filenames = sorted(glob.glob(image_folder+"/*.png"))
-for filename in filenames:
-    img = cv2.imread(filename)
-    height, width, layers = img.shape
-    size = (width, height)
-    video_frames.append(img)
-
-out = cv2.VideoWriter(video_folder + "/drone_video.mp4", cv2.VideoWriter_fourcc(*'MP4V'), 15, size)
-for frame in video_frames:
-    out.write(frame)
-out.release()
