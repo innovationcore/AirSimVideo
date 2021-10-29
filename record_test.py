@@ -5,20 +5,28 @@ import airsim
 import time
 import cv2
 import numpy as np
+import argparse 
 
-from stable_baselines3 import DQN
 from stable_baselines3.common.monitor import Monitor
 from stable_baselines3.common.vec_env import VecVideoRecorder, DummyVecEnv, VecTransposeImage
-from stable_baselines3.common.evaluation import evaluate_policy
-from stable_baselines3.common.callbacks import EvalCallback
 
-test_type = "drone"
-ip="127.0.0.1"
+parser = argparse.ArgumentParser(description='AirSim Test Launcher')
 
-video_length = 100
+parser.add_argument('--test_type', type=str, default="drone")
+parser.add_argument('--ip', type=str, default="127.0.0.1")
+parser.add_argument('--video_folder', type=str, default="videos")
+parser.add_argument('--num_frames', type=int, default=100)
+parser.add_argument('--image_folder', type=str, default="images")
+
+args = parser.parse_args()
+
+test_type = args.test_type
+ip = args.ip
+
+video_length = args.num_frames
 video_frames = []
-video_folder = "videos"
-image_folder = "images"
+video_folder = args.video_folder
+image_folder = args.image_folder
 
 if test_type == "drone":
     env_type = "airgym:airsim-drone-sample-v0"
