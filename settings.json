@@ -7,8 +7,9 @@
 	"ClockSpeed": 1,
 	"ViewMode": "NoDisplay",
 	"Vehicles": {
-		"SimpleFlight": {
+		"Drone1": {
 			"VehicleType": "SimpleFlight",
+            "X": 4, "Y": 0, "Z": -2,
 			"DefaultVehicleState": "Armed",
 			"AutoCreate": true,
 			"PawnPath": "",
@@ -17,6 +18,56 @@
 			"AllowAPIAlways": true,
 			"RC": {
 				"RemoteControlID": 0,
+				"AllowAPIWhenDisconnected": false
+			},
+			"Cameras": {
+				"cam": {
+					"CaptureSettings": [
+						{
+							"ImageType": 0,
+							"Width": 500,
+							"Height": 500,
+							"FOV_Degrees": 90,
+							"AutoExposureSpeed": 100,
+							"AutoExposureBias": 0,
+							"AutoExposureMaxBrightness": 1,
+							"AutoExposureMinBrightness": 1,
+							"MotionBlurAmount": 0,
+							"TargetGamma": 1.5
+						},
+						{
+							"ImageType": 5,
+							"Width": 240,
+							"Height": 180,
+							"FOV_Degrees": 90,
+							"AutoExposureSpeed": 100,
+							"AutoExposureBias": 0,
+							"AutoExposureMaxBrightness": 1,
+							"AutoExposureMinBrightness": 1,
+							"MotionBlurAmount": 0,
+							"TargetGamma": 1.5
+						}
+					],
+					"X": 0.4,
+					"Y": 0.0,
+					"Z": 0.0,
+					"Pitch": 0.0,
+					"Roll": 0.0,
+					"Yaw": 0.0
+				}
+			}
+		},
+		"Drone2": {
+			"VehicleType": "SimpleFlight",
+            "X": 8, "Y": 0, "Z": -2,
+			"DefaultVehicleState": "Armed",
+			"AutoCreate": true,
+			"PawnPath": "",
+			"EnableCollisionPassthrogh": false,
+			"EnableCollisions": true,
+			"AllowAPIAlways": true,
+			"RC": {
+				"RemoteControlID": 1,
 				"AllowAPIWhenDisconnected": false
 			},
 			"Cameras": {
