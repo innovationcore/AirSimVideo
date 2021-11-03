@@ -11,11 +11,11 @@ from airgym.envs.airsim_env import AirSimEnv
 
 
 class AirSimDroneEnv(AirSimEnv):
-    def __init__(self, ip_address, step_length, image_shape):
+    def __init__(self, ip_address, step_length, image_shape, vehicle_name=''):
         super().__init__(image_shape)
         self.step_length = step_length
         self.image_shape = image_shape
-
+        self.vehicle_name = vehicle_name
         self.state = {
             "position": np.zeros(3),
             "collision": False,
@@ -35,7 +35,7 @@ class AirSimDroneEnv(AirSimEnv):
 
     def _setup_flight(self):
         self.drone.reset()
-        self.drone.enableApiControl(True)
+        self.drone.enableApiControl(True, self.vehicle_name)
         self.drone.armDisarm(True)
 
         # Set home position and velocity
