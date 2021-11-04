@@ -1,4 +1,5 @@
 import setup_path
+import os
 import gym
 import airgym
 import airsim
@@ -25,6 +26,13 @@ video_length = args.num_frames
 video_frames = []
 video_folder = args.video_folder
 image_folder = args.image_folder
+
+try:
+    os.makedirs(image_folder)
+    os.makedirs(video_folder)
+except OSError:
+    if not os.path.isdir(video_folder) or not os.path.isdir(image_folder):
+        raise
 
 env_type = "airgym:airsim-drone-sample-v0"
 env1 = gym.make(

@@ -16,6 +16,7 @@ parser.add_argument('--test_type', type=str, default="drone")
 parser.add_argument('--ip', type=str, default="127.0.0.1")
 parser.add_argument('--video_folder', type=str, default="videos")
 parser.add_argument('--num_frames', type=int, default=100)
+parser.add_argument('--save_frames', type=bool, default=False)
 parser.add_argument('--image_folder', type=str, default="images")
 
 args = parser.parse_args()
@@ -27,6 +28,14 @@ video_length = args.num_frames
 video_frames = []
 video_folder = args.video_folder
 image_folder = args.image_folder
+
+if args.save_frames:
+    try:
+        os.makedirs(image_folder)
+        os.makedirs(video_folder)
+    except OSError:
+        if not os.path.isdir(video_folder) or not os.path.isdir(image_folder):
+            raise
 
 if test_type == "drone":
     env_type = "airgym:airsim-drone-sample-v0"
@@ -56,10 +65,11 @@ size = (response.height, response.width, 3) # Specified in write_png
 
 for i in range(video_length + 1):
     env.step([env.action_space.sample()])
-    response = client.simGetImages([request])[0]  #type = airsim.ImageResponse
-    data = response.image_data_uint8
-    data = np.reshape(np.frombuffer(data, dtype=np.uint8), size)
-    image_path = f"{image_folder}/{env_type}_{i}.png"
-    print(f"Writing: {image_path}")
-    airsim.utils.write_png(image_path, data)
+    if args.save_frames:
+        response = client.simGetImages([request])[0]  #type = airsim.ImageResponse
+        data = response.image_data_uint8
+        data = np.reshape(np.frombuffer(data, dtype=np.uint8), size)
+        image_path = f"{image_folder}/{env_type}_{i}.png"
+        print(f"Writing: {image_path}")
+        airsim.utils.write_png(image_path, data)
 env.close()
